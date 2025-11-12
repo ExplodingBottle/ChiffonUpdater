@@ -31,7 +31,7 @@ public class AgentServer extends Thread {
 		try {
 			for (int i = 0; i < MAX_RETRY_ITERATIONS && soc == null; i++) {
 				try {
-					soc = new ServerSocket(DEFAULT_PORT + i, 10, InetAddress.getLoopbackAddress());
+					soc = new ServerSocket(DEFAULT_PORT + i, 30, InetAddress.getLoopbackAddress());
 					soc.setSoTimeout(1000);
 				} catch (BindException e) {
 					logger.log(CMPN, LogLevel.WARNING, "Failed to bind on port " + (DEFAULT_PORT + i));
