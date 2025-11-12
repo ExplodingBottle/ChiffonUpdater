@@ -80,9 +80,13 @@ public class HttpRequestProcessor implements Closeable {
 								String parametersSplit[] = splitUrl[1].split("&");
 								for (String param : parametersSplit) {
 									String pSplit[] = param.split("=");
-									if (pSplit.length == 2) {
+									if (pSplit.length >= 2) {
+										String recSplit = "";
+										for (int i = 1; i < pSplit.length; i++) {
+											recSplit += pSplit[i];
+										}
 										parameters.put(URLDecoder.decode(pSplit[0], "UTF-8"),
-												URLDecoder.decode(pSplit[1], "UTF-8"));
+												URLDecoder.decode(recSplit, "UTF-8"));
 									}
 								}
 							}
@@ -101,7 +105,6 @@ public class HttpRequestProcessor implements Closeable {
 							for (int i = 1; i < split.length; i++) {
 								regenerated += split[i] + (i == split.length - 1 ? "" : ":");
 							}
-							System.out.println(split[0].trim() + ": " + regenerated.trim());
 							httpParameters.put(split[0].trim(), regenerated.trim());
 						}
 					} else {
